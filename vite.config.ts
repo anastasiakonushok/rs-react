@@ -8,7 +8,7 @@ export default defineConfig(() => {
   const __dirname = fileURLToPath(new URL('.', import.meta.url));
   return {
     plugins: [react()],
-    base: "/rs_react/",
+    base: "/rs-react/",
     resolve: {
       alias: [
         { find: "@src", replacement: resolve(__dirname, "./src") },

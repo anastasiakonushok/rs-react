@@ -1,18 +1,16 @@
-import { Component } from "react";
+import React from "react";
 import styles from "./ErrorTestButton.module.scss";
 
-class ErrorTestButton extends Component {
-  throwError = () => {
+const ErrorTestButton: React.FC = () => {
+  const throwError = () => {
     throw new Error("Test error");
   };
 
-  render() {
-    return (
-      <button className={styles.errorButton} onClick={this.throwError}>
-        Error
-      </button>
-    );
-  }
-}
+  return (
+    <button className={styles.errorButton} onClick={throwError}>
+      Throw Error
+    </button>
+  );
+};
 
 export default ErrorTestButton;

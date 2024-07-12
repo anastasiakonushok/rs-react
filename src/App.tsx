@@ -1,55 +1,68 @@
-import { Component } from "react";
+import React, { useState, useEffect } from "react";
 import SearchComponent from "./components/SearchComponent/SearchComponent";
 import ResultsComponent from "./components/ResultsComponent/ResultsComponent";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import ErrorTestButton from "./components/ErrorTestButton/ErrorTestButton";
 import { fetchPlanets, Planet } from "./services/api";
+import Pagination from "./components/Pagination/Pagination";
+import { useLocation, useNavigate } from "react-router-dom";
 
-interface AppState {
-  results: Planet[];
-}
+const App: React.FC = () => {
+  const [results, setResults] = useState<Planet[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-class App extends Component<NonNullable<unknown>, AppState> {
-  constructor(props: NonNullable<unknown>) {
-    super(props);
-    this.state = {
-      results: [],
-    };
-  }
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const page = searchParams.get("page");
+    if (page) {
+      setCurrentPage(Number(page));
+    }
+  }, [location.search]);
 
-  componentDidMount() {
+  useEffect(() => {
     const searchTerm = localStorage.getItem("searchTerm") || "";
-    this.performSearch(searchTerm);
-  }
+    performSearch(searchTerm, currentPage);
+  }, [currentPage]);
 
-  performSearch = async (searchTerm: string) => {
+  const performSearch = async (searchTerm: string, page: number) => {
     try {
-      const results = await fetchPlanets(searchTerm);
-      this.setState({ results });
+      const results = await fetchPlanets(searchTerm, page);
+      setResults(results);
     } catch (error) {
       console.error("Error fetching items: ", error);
     }
   };
 
-  handleSearch = (searchTerm: string) => {
-    this.performSearch(searchTerm);
+  const handleSearch = (searchTerm: string) => {
+    performSearch(searchTerm, 1); // Reset to first page on new search
+    setCurrentPage(1);
+    navigate(`/?page=1`);
   };
 
-  render() {
-    return (
-      <ErrorBoundary>
-        <div className="container">
-          <header className="header">
-            <SearchComponent onSearch={this.handleSearch} />
-            <ErrorTestButton />
-          </header>
-          <div>
-            <ResultsComponent results={this.state.results} />
-          </div>
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    navigate(`/?page=${page}`);
+  };
+
+  return (
+    <ErrorBoundary>
+      <div className="container">
+        <header className="header">
+          <SearchComponent onSearch={handleSearch} />
+          <ErrorTestButton />
+        </header>
+        <div>
+          <ResultsComponent results={results} />
+          <Pagination
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
         </div>
-      </ErrorBoundary>
-    );
-  }
-}
+      </div>
+    </ErrorBoundary>
+  );
+};
 
 export default App;

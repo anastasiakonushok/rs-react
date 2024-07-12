@@ -1,56 +1,34 @@
-import React, { Component } from "react";
-import styles from "./SearchComponent.module.scss";
+import React, { useState } from "react";
 
 interface SearchComponentProps {
   onSearch: (searchTerm: string) => void;
 }
 
-interface SearchComponentState {
-  searchTerm: string;
-}
+const SearchComponent: React.FC<SearchComponentProps> = ({ onSearch }) => {
+  const [searchTerm, setSearchTerm] = useState("");
 
-class SearchComponent extends Component<
-  SearchComponentProps,
-  SearchComponentState
-> {
-  constructor(props: SearchComponentProps) {
-    super(props);
-    this.state = {
-      searchTerm: localStorage.getItem("searchTerm") || "",
-    };
-  }
-
-  handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ searchTerm: event.target.value });
+  const handleSearch = () => {
+    localStorage.setItem("searchTerm", searchTerm);
+    onSearch(searchTerm);
   };
 
-  handleSearch = () => {
-    const { searchTerm } = this.state;
-    const trimmedSearchTerm = searchTerm.trim();
-    localStorage.setItem("searchTerm", trimmedSearchTerm);
-    this.props.onSearch(trimmedSearchTerm);
-  };
-  handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      this.handleSearch();
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
     }
   };
-  render() {
-    return (
-      <div className={styles.searchContainer}>
-        <input
-          type="text"
-          value={this.state.searchTerm}
-          onChange={this.handleInputChange}
-          onKeyDown={this.handleKeyDown}
-          className={styles.searchInput}
-        />
-        <button onClick={this.handleSearch} className={styles.searchButton}>
-          Search
-        </button>
-      </div>
-    );
-  }
-}
+
+  return (
+    <div>
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        onKeyDown={handleKeyDown}
+      />
+      <button onClick={handleSearch}>Search</button>
+    </div>
+  );
+};
 
 export default SearchComponent;

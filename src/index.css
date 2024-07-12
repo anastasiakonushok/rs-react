@@ -27,9 +27,14 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
-
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 body {
   margin: 0;
+  padding: 0;
   /* display: flex; */
   place-items: center;
   min-width: 320px;

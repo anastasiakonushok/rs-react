@@ -8,10 +8,11 @@ export interface Planet {
 }
 
 export const fetchPlanets = async (
-  searchTerm: string = ""
+  searchTerm: string = "",
+  page: number = 1
 ): Promise<Planet[]> => {
   const response = await axios.get<{ results: Planet[] }>(
-    `${API_URL}?search=${searchTerm}`
+    `${API_URL}?search=${searchTerm}&page=${page}`
   );
   return response.data.results;
 };

@@ -1,4 +1,5 @@
-import { Component } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Planet } from "../../services/api";
 import styles from "./ResultsComponent.module.scss";
 
@@ -6,24 +7,31 @@ interface ResultsComponentProps {
   results: Planet[];
 }
 
-class ResultsComponent extends Component<ResultsComponentProps> {
-  render() {
-    const { results } = this.props;
+const ResultsComponent: React.FC<ResultsComponentProps> = ({ results }) => {
+  const navigate = useNavigate();
 
-    return (
-      <div>
-        <h2>List Planet</h2>
-        <div className={styles.resultWrapp}>
-          {results.map((planet, index) => (
-            <div key={index} className={styles.resultItem}>
-              <h3 className={styles.resultTitle}>{planet.name}</h3>
-              <p className={styles.resultClimate}>{planet.climate}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-}
+  const handleCardClick = (id: number) => {
+    navigate(`/details/${id}`);
+  };
+
+  return (
+    <div className={styles.resultWrapp}>
+      {results.length > 0 ? (
+        results.map((planet, index) => (
+          <div
+            key={planet.name}
+            className={styles.resultItem}
+            onClick={() => handleCardClick(index + 1)}
+          >
+            <h3 className={styles.resultTitle}>{planet.name}</h3>
+            <p className={styles.resultClimate}>{planet.climate}</p>
+          </div>
+        ))
+      ) : (
+        <p>No results found</p>
+      )}
+    </div>
+  );
+};
 
 export default ResultsComponent;

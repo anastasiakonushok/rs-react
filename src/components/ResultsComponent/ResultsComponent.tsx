@@ -24,7 +24,11 @@ const ResultsComponent: React.FC<ResultsComponentProps> = ({ results }) => {
             onClick={() => handleCardClick(index + 1)}
           >
             <h3 className={styles.resultTitle}>{planet.name}</h3>
-            <p className={styles.resultClimate}>{planet.climate}</p>
+            <ul>
+              <li>{planet.climate}</li>
+              <li>{planet.population}</li>
+              <li>{planet.terrain}</li>
+            </ul>
           </div>
         ))
       ) : (

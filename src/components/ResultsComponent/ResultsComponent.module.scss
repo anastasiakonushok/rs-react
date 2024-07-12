@@ -1,8 +1,7 @@
 .resultWrapp {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
     gap: 60px;
-    list-style: none;
 }
 .resultItem {
     border: 1px solid #ccc;
@@ -12,6 +11,10 @@
     margin-bottom: 10px;
     min-width: 10%;
     flex: 1;
+
+    ul {
+      padding-left: 20px;
+    }
   }
   
   .resultTitle {

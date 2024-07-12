@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./DetailedCard.module.scss";
 
@@ -11,6 +11,7 @@ interface PlanetDetails {
 
 const DetailedCard: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate(); // useNavigate hook
   const [planet, setPlanet] = useState<PlanetDetails | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -41,10 +42,10 @@ const DetailedCard: React.FC = () => {
 
   return (
     <div className={styles.detailedCard}>
+      <button onClick={() => navigate("/")}>Go to Homepage</button>
       <h2>{planet.name}</h2>
       <p>Climate: {planet.climate}</p>
       <p>Population: {planet.population}</p>
-      <button onClick={() => window.history.back()}>Close</button>
     </div>
   );
 };

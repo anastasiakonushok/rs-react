@@ -5,8 +5,8 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  /* background-color: #170550; */
-  background-image: url(./assets/bg-star.jpg);
+  background-color: #0e0332;
+  /* background-image: url(./assets/bg-star.jpg); */
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -54,13 +54,13 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #707070;
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
+/* button:hover {
   border-color: #646cff;
-}
+} */
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;

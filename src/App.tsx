@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import SearchComponent from "./components/SearchComponent/SearchComponent";
 import ResultsComponent from "./components/ResultsComponent/ResultsComponent";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import ErrorTestButton from "./components/ErrorTestButton/ErrorTestButton";
 import { fetchPlanets, Planet } from "./services/api";
 import Pagination from "./components/Pagination/Pagination";
-import { useLocation, useNavigate } from "react-router-dom";
+import DetailedCard from "./components/DetailedCard/DetailedCard";
 
-const App: React.FC = () => {
+const MainPage: React.FC = () => {
   const [results, setResults] = useState<Planet[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const navigate = useNavigate();
@@ -62,6 +63,15 @@ const App: React.FC = () => {
         </div>
       </div>
     </ErrorBoundary>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<MainPage />} />
+      <Route path="/details/:id" element={<DetailedCard />} />
+    </Routes>
   );
 };
 

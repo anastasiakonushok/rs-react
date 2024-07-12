@@ -5,6 +5,8 @@ const API_URL = "https://swapi.dev/api/planets/";
 export interface Planet {
   name: string;
   climate: string;
+  population: string;
+  terrain: string;
 }
 
 export const fetchPlanets = async (

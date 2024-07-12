@@ -5,29 +5,36 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  /* background-color: #170550; */
+  background-image: url(./assets/bg-star.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  padding: 30px 0px;
+}
 a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
 }
-a:hover {
-  color: #535bf2;
-}
 
 body {
   margin: 0;
-  display: flex;
+  /* display: flex; */
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  box-sizing: border-box;
 }
 
 h1 {
@@ -53,7 +60,11 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-
+.container {
+  max-width: 1280px;
+  padding: 0px 40px;
+  margin: 0 auto;
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

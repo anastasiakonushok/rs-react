@@ -1,0 +1,27 @@
+.resultWrapp {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 60px;
+}
+.resultItem {
+    border: 1px solid #ccc;
+    background-color:rgb(59, 57, 57);
+    border-radius:15px;
+    padding: 20px;
+    margin-bottom: 10px;
+    min-width: 10%;
+    flex: 1;
+  }
+  
+  .resultTitle {
+    font-size: 18px;
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  .resultClimate {
+    font-size: 14px;
+  }
+  h2 {
+    text-align: center;
+  }
